@@ -11,8 +11,8 @@ import javafx.stage.Stage;
 
 public class CheckersRunner extends Application {
 
-    private final Image imageBoard = new Image("resources/board1.jpg");
-    private final Image imageWhitePiece = new Image("resources/white-normal.png");
+    private final Image imageBoard = new Image("file:resources/board1.jpg");
+    private final Image imageWhitePiece = new Image("file:resources/white-normal.png");
     private FlowPane pieces = new FlowPane(Orientation.HORIZONTAL);
 
     public static void main(String[] args) {
