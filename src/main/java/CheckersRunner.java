@@ -11,8 +11,10 @@ import javafx.stage.Stage;
 
 public class CheckersRunner extends Application {
 
-    private final Image imageBoard = new Image("file:resources/board1.jpg");
-    private final Image imageWhitePiece = new Image("file:resources/white-normal.png");
+    private final Image imageBoard = new Image("board1.jpg");
+    private final Image imageWhitePiece = new Image("white-normal.png");
+    private final Image imageBlackPiece = new Image("black-normal.png");
+
     private FlowPane pieces = new FlowPane(Orientation.HORIZONTAL);
 
     public static void main(String[] args) {
@@ -29,18 +31,22 @@ public class CheckersRunner extends Application {
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
         grid.setPadding(new Insets(11.5, 12.5, 13.5, 14.5));
-        grid.setHgap(5.5);
-        grid.setVgap(5.5);
+        //grid.setHgap(5.5);
+        //grid.setVgap(5.5);
         grid.setBackground(background);
 
         ImageView img = new ImageView(imageWhitePiece);
         pieces.getChildren().add(img);
 
-        grid.add(pieces, 0, 0, 3, 1);
+        ImageView img2 = new ImageView(imageBlackPiece);
+        pieces.getChildren().add(img2);
+
+        grid.add(pieces, 20, 50, 3, 1);
 
         Scene scene = new Scene(grid, 585, 612, Color.BLACK);
         primaryStage.setTitle("Checkers Game");
         primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 
