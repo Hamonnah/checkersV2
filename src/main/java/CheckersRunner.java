@@ -20,7 +20,6 @@ public class CheckersRunner extends Application {
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
 
-
         Scene scene = new Scene(checkersDrawer.getBorderPane(), 700, 700, Color.BLACK);
         primaryStage.setTitle("Checkers Game");
         primaryStage.setScene(scene);
