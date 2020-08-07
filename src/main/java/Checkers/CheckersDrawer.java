@@ -1,6 +1,7 @@
 package Checkers;
 
-import Pieces.Piece;
+import Controllers.MenuDesigner;
+import Pieces.PieceColour;
 import Pieces.PiecePosition;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -10,14 +11,17 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 
 import java.util.Map;
+import java.util.Objects;
 
 public class CheckersDrawer {
 
     private GameState gameState;
+    private MenuDesigner menuDesigner = new MenuDesigner();
     private BorderPane borderPane = new BorderPane();
-    private GridPane gridPane = new GridPane();
+    private static GridPane gridPane = new GridPane();
     private Background background;
     private final Image imageBoard = new Image("board1.jpg");
+    private static Image light = new Image(Resources.getPath("light.png"));
 
     public CheckersDrawer(GameState gameState) {
         this.gameState = gameState;
@@ -27,11 +31,13 @@ public class CheckersDrawer {
         createPieces();
 
         borderPane.setCenter(gridPane);
+        borderPane.setTop(menuDesigner.getMenuBar());
+        //menuDesigner.getNewGame().setOnAction(event -> new NewGame().start(gameState));
     }
 
     private void createBoardLayout() {
         gridPane = new GridPane();
-        gridPane.setPadding(new Insets(58,59,58,56));
+        gridPane.setPadding(new Insets(30,30,30,30));
         gridPane.setBackground(createBoardBackground());
 
         for(int i = 0; i < 8; i++) {
@@ -45,14 +51,7 @@ public class CheckersDrawer {
             rowConstraints.setValignment(VPos.CENTER);
             gridPane.getRowConstraints().add(rowConstraints);
         }
-        //gridPane.setGridLinesVisible(true);
     }
-
-    private void addPiece(PiecePosition position, Piece piece) {
-        gridPane.add((new ImageView("white-normal.png")), position.getColumn(), position.getRow());
-        gridPane.add((new ImageView("black-normal.png")), position.getColumn(), position.getRow());
-    }
-
 
     private Background createBoardBackground() {
         BackgroundSize backgroundSize = new BackgroundSize(612, 612, false, false, true, false);
@@ -62,8 +61,29 @@ public class CheckersDrawer {
     }
 
     private void createPieces() {
-        for(Map.Entry<PiecePosition, Piece> pieces : gameState.getGameState().entrySet()){
-            addPiece(pieces.getKey(), pieces.getValue());
+        for(Map.Entry<PiecePosition, PieceColour> pieces : gameState.getBoard().entrySet()){
+            addPiece(pieces.getKey(), pieces.getValue(), false);
+        }
+    }
+
+    static void addPiece(PiecePosition position, PieceColour pieceColour, boolean light) {
+        gridPane.add(new ImageView(generateImagePath(pieceColour, light)), position.getColumn(), position.getRow());
+    }
+
+    protected static void removePiece(PiecePosition position) {
+        gridPane.getChildren().removeIf(node -> node instanceof ImageView && Objects.equals(GridPane.getColumnIndex(node), position.getColumn())
+                && Objects.equals(GridPane.getRowIndex(node), position.getRow()));
+    }
+
+    protected static void setLight(PiecePosition position) {
+        gridPane.add(new ImageView(light), position.getColumn(), position.getRow());
+    }
+
+    private static Image generateImagePath(PieceColour piece, boolean light) {
+        if(light) {
+            return new Image(Resources.getPath(piece.getPieceColour() + "-" + piece.getPieceType() + "-light.png"));
+        } else {
+            return new Image(Resources.getPath(piece.getPieceColour() + "-" + piece.getPieceType() + ".png"));
         }
     }
 
