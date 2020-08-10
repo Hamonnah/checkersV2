@@ -67,7 +67,9 @@ public class CheckersDrawer {
     }
 
     static void addPiece(PiecePosition position, PieceColour pieceColour, boolean light) {
-        gridPane.add(new ImageView(generateImagePath(pieceColour, light)), position.getColumn(), position.getRow());
+        //gridPane.add(new ImageView(generateImagePath(pieceColour, light)), position.getColumn(), position.getRow());
+        gridPane.add((new ImageView("white-normal.png")), position.getColumn(), position.getRow());
+        gridPane.add((new ImageView("black-normal.png")), position.getColumn(), position.getRow());
     }
 
     protected static void removePiece(PiecePosition position) {

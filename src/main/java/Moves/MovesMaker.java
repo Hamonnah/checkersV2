@@ -1,6 +1,5 @@
 package Moves;
 
-import Checkers.CheckersDrawer;
 import Checkers.GameState;
 import Pieces.PiecePosition;
 

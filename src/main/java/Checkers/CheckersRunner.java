@@ -1,12 +1,12 @@
 package Checkers;
 
-import Checkers.CheckersDrawer;
-import Checkers.GameState;
 import Controllers.MouseController;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+
 
 public class CheckersRunner extends Application {
 
@@ -16,10 +16,13 @@ public class CheckersRunner extends Application {
     private MouseController mouseController = new MouseController(gameState);
 
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) //throws Exception
+    {
         this.primaryStage = primaryStage;
 
         Scene scene = new Scene(checkersDrawer.getBorderPane(), 700, 700, Color.BLACK);
+        scene.addEventFilter(MouseEvent.MOUSE_CLICKED, mouseController.getMouseClick());
+
         primaryStage.setTitle("Checkers Game");
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);

@@ -7,8 +7,9 @@ public class MenuDesigner {
 
     private MenuBar menuBar = new MenuBar();
     private Menu menu = new Menu("Game");
+    private Menu ranking = new Menu("Ranking");
     private MenuItem newGame = new MenuItem("New Game");
-    private MenuItem ranking = new MenuItem("Ranking");
+    private MenuItem viewRanking = new MenuItem("Ranking...");
 
     public MenuDesigner() {
         createMenu();
@@ -24,10 +25,10 @@ public class MenuDesigner {
                     alert.setHeaderText(null);
                     alert.setContentText("Do you want to start a new game?");
 
-                    //ButtonType yes = new ButtonType("Yes");
-                    //ButtonType no = new ButtonType("No");
+                    ButtonType yes = new ButtonType("Yes");
+                    ButtonType no = new ButtonType("No");
 
-                    //alert.getButtonTypes().setAll(yes, no);
+                    alert.getButtonTypes().setAll(yes, no);
 
                 });
         menu.getItems().add(newGame);
@@ -42,6 +43,10 @@ public class MenuDesigner {
         MenuItem exit = new MenuItem("Exit...");
         exit.setOnAction(setOnAction -> closeProgram());
         menu.getItems().add(exit);
+
+        menuBar.getMenus().add(ranking);
+        MenuItem viewRanking = new MenuItem("Ranking...");
+        ranking.getItems().add(viewRanking);
     }
 
     private void rankingAction() {

@@ -6,11 +6,14 @@ import Moves.MovesMaker;
 import Pieces.*;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class GameState {
 
     private Map<PiecePosition, PieceColour> board = new HashMap<>();
+    private Set<PiecePosition> possiblePromote = new HashSet<>();
 
     private BlackPiece blackPieces = new BlackPiece();
     private WhitePiece whitePieces = new WhitePiece();
@@ -35,6 +38,10 @@ public class GameState {
 
     public GameState() {
         putAllPieces();
+
+        //this.kickScanner = new KickScanner(this);
+        //this.queenKickScanner = new QueenKickScanner(this);
+        //this.computer = new Computer(this);
     }
 
     public void putAllPieces() {
