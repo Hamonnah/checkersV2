@@ -1,6 +1,7 @@
 package Checkers;
 
 import Controllers.MenuDesigner;
+import Controllers.NewGame;
 import Pieces.PieceColour;
 import Pieces.PiecePosition;
 import javafx.geometry.HPos;
@@ -67,9 +68,9 @@ public class CheckersDrawer {
     }
 
     static void addPiece(PiecePosition position, PieceColour pieceColour, boolean light) {
-        //gridPane.add(new ImageView(generateImagePath(pieceColour, light)), position.getColumn(), position.getRow());
-        gridPane.add((new ImageView("white-normal.png")), position.getColumn(), position.getRow());
-        gridPane.add((new ImageView("black-normal.png")), position.getColumn(), position.getRow());
+        ImageView imageView = new ImageView(generateImagePath(pieceColour, light));
+        imageView.setOnMouseClicked(event -> setLight(position));
+        gridPane.add(imageView, position.getColumn(), position.getRow());
     }
 
     protected static void removePiece(PiecePosition position) {
@@ -85,7 +86,8 @@ public class CheckersDrawer {
         if(light) {
             return new Image(Resources.getPath(piece.getPieceColour() + "-" + piece.getPieceType() + "-light.png"));
         } else {
-            return new Image(Resources.getPath(piece.getPieceColour() + "-" + piece.getPieceType() + ".png"));
+            String x = piece.getPieceColour() + "-" + piece.getPieceType() + ".png";
+            return new Image(Resources.getPath(x));
         }
     }
 

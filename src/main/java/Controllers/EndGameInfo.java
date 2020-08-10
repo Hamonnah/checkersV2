@@ -16,13 +16,11 @@ public class EndGameInfo {
     }
 
     public void whitesWin() {
-        //gameState.getSaveLoadGame().removeFile();
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("End Game");
         alert.setHeaderText(null);
-        alert.setContentText("White Player Win!"
-                + "\n\nThe last saved game has been removed.");
+        alert.setContentText("White Player Win!");
 
         ButtonType newGame = new ButtonType("New Game");
         ButtonType exit = new ButtonType("Exit");
@@ -38,13 +36,11 @@ public class EndGameInfo {
     }
 
     public void blacksWin() {
-        //gameState.getSaveLoadGame().removeFile();
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("End Game");
         alert.setHeaderText(null);
-        alert.setContentText("Black Player Win!" +
-                "\n\nThe last saved game has been removed.");
+        alert.setContentText("Black Player Win!");
 
         ButtonType newGame = new ButtonType("New Game");
         ButtonType exit = new ButtonType("Exit");
@@ -60,13 +56,11 @@ public class EndGameInfo {
     }
 
     public void draw() {
-        //gameState.getSaveLoadGame().removeFile();
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("End Game");
         alert.setHeaderText(null);
-        alert.setContentText("Draw! No one win!"
-                + "\n\nThe last saved game has been removed.");
+        alert.setContentText("Draw! No one win!");
 
         ButtonType newGame = new ButtonType("New Game");
         ButtonType exit = new ButtonType("Exit");

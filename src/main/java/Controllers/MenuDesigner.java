@@ -1,6 +1,6 @@
 package Controllers;
 
-import javafx.event.ActionEvent;
+import javafx.application.Platform;
 import javafx.scene.control.*;
 
 public class MenuDesigner {
@@ -23,12 +23,13 @@ public class MenuDesigner {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("New Game");
                     alert.setHeaderText(null);
-                    alert.setContentText("Do you want to start a new game?");
+                    alert.setContentText("Do you really want to start a new game?");
 
                     ButtonType yes = new ButtonType("Yes");
                     ButtonType no = new ButtonType("No");
 
                     alert.getButtonTypes().setAll(yes, no);
+                    alert.show();
 
                 });
         menu.getItems().add(newGame);
@@ -47,14 +48,13 @@ public class MenuDesigner {
         menuBar.getMenus().add(ranking);
         MenuItem viewRanking = new MenuItem("Ranking...");
         ranking.getItems().add(viewRanking);
-    }
-
-    private void rankingAction() {
         ranking.setOnAction(event -> new Ranking().showRanking());
     }
 
     private void closeProgram() {
         System.out.println("Closing program... ");
+        Platform.exit();
+        System.exit(0);
     }
 
     public MenuItem getNewGame() {
