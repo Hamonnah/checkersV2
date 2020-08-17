@@ -32,7 +32,6 @@ public class CheckersDrawer {
 
         borderPane.setCenter(gridPane);
         borderPane.setTop(menuDesigner.getMenuBar());
-        //menuDesigner.getNewGame().setOnAction(event -> new NewGame().start(gameState));
     }
 
     private void createBoardLayout() {
@@ -66,24 +65,24 @@ public class CheckersDrawer {
         }
     }
 
-    static void addPiece(PiecePosition position, PieceColour pieceColour, boolean light) {
+    public void addPiece(PiecePosition position, PieceColour pieceColour, boolean light) {
         ImageView imageView = new ImageView(generateImagePath(pieceColour, light));
         imageView.setOnMouseClicked(event -> {
-                    setLight(position);});
+                    gameState.handleMove(position);});
 
         gridPane.add(imageView, position.getColumn(), position.getRow());
     }
 
-    protected static void removePiece(PiecePosition position) {
+    protected void removePiece(PiecePosition position) {
         gridPane.getChildren().removeIf(node -> node instanceof ImageView && Objects.equals(GridPane.getColumnIndex(node), position.getColumn())
                 && Objects.equals(GridPane.getRowIndex(node), position.getRow()));
     }
 
-    protected static void setLight(PiecePosition position) {
+    protected void setLight(PiecePosition position) {
         gridPane.add(new ImageView(light), position.getColumn(), position.getRow());
     }
 
-    private static Image generateImagePath(PieceColour piece, boolean light) {
+    private Image generateImagePath(PieceColour piece, boolean light) {
         if(light) {
             return new Image(Resources.getPath(piece.getPieceColour() + "-" + piece.getPieceType() + "-light.png"));
         } else {

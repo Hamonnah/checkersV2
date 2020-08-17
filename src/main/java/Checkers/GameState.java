@@ -12,6 +12,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class GameState {
+    
+    private CheckersDrawer checkersDrawer;
 
     private Map<PiecePosition, PieceColour> board = new HashMap<>();
     private Set<PiecePosition> possiblePromote = new HashSet<>();
@@ -36,6 +38,10 @@ public class GameState {
     private boolean isKick = false;
 
     private PiecePosition pickedPosition;
+
+    public void setCheckersDrawer(CheckersDrawer checkersDrawer) {
+        this.checkersDrawer = checkersDrawer;
+    }
 
     public GameState() {
         putAllPieces();
@@ -71,18 +77,18 @@ public class GameState {
         PieceColour pieceOnActualPosition = getPiece(actualPosition);
 
         if (actualPosition != null) {
-            CheckersDrawer.removePiece(actualPosition);
-            CheckersDrawer.addPiece(actualPosition, pieceOnActualPosition, !light);
+            checkersDrawer.removePiece(actualPosition);
+            checkersDrawer.addPiece(actualPosition, pieceOnActualPosition, !light);
         }
 
-        CheckersDrawer.removePiece(actualPosition);
-        CheckersDrawer.addPiece(actualPosition, pieceOnActualPosition, !light);
+        checkersDrawer.removePiece(actualPosition);
+        checkersDrawer.addPiece(actualPosition, pieceOnActualPosition, !light);
     }
 
     public void movePiece(PiecePosition newPosition, PiecePosition actualPosition) {
         PieceColour pieceColour = getPiece(actualPosition);
-        CheckersDrawer.addPiece(newPosition, pieceColour, false);
-        CheckersDrawer.removePiece(actualPosition);
+        checkersDrawer.addPiece(newPosition, pieceColour, false);
+        checkersDrawer.removePiece(actualPosition);
 
         movePieceOnBoard(newPosition, actualPosition, pieceColour);
     }
@@ -97,9 +103,9 @@ public class GameState {
 
         PiecePosition kickPosition = findPosition(newPosition, normalKicks.getPossibleKicks(), queenKicks.getPossibleKicks());
 
-        CheckersDrawer.addPiece(newPosition, pieceColour, false);
-        CheckersDrawer.removePiece(actualPosition);
-        CheckersDrawer.removePiece(kickPosition);
+        checkersDrawer.addPiece(newPosition, pieceColour, false);
+        checkersDrawer.removePiece(actualPosition);
+        checkersDrawer.removePiece(kickPosition);
 
         kickPieceFromBoard(newPosition, actualPosition, kickPosition, pieceColour);
 
@@ -109,15 +115,15 @@ public class GameState {
         if (!normalKicks.getPossibleKickMoves().isEmpty() && pieceColour.getPieceType().isNormal()) {
             normalKicks.getPossibleKickMoves().forEach(this::addLightMove);
 
-            CheckersDrawer.removePiece(actualPosition);
-            CheckersDrawer.addPiece(newPosition, pieceColour, true);
+            checkersDrawer.removePiece(actualPosition);
+            checkersDrawer.addPiece(newPosition, pieceColour, true);
         }
 
         if (!queenKicks.getPossibleKickMoves().isEmpty() && pieceColour.getPieceType().isQueen()) {
             queenKicks.getPossibleKickMoves().forEach(this::addLightMove);
 
-            CheckersDrawer.removePiece(actualPosition);
-            CheckersDrawer.addPiece(newPosition, pieceColour, true);
+            checkersDrawer.removePiece(actualPosition);
+            checkersDrawer.addPiece(newPosition, pieceColour, true);
         }
     }
 
@@ -128,11 +134,11 @@ public class GameState {
     }
 
     private void addLightMove(PiecePosition position) {
-        CheckersDrawer.setLight(position);
+        checkersDrawer.setLight(position);
     }
 
     private void unLight(PiecePosition position) {
-        CheckersDrawer.removePiece(position);
+        checkersDrawer.removePiece(position);
     }
 
 
@@ -172,15 +178,15 @@ public class GameState {
             PieceColour pieceColour = getPiece(position);
 
             if (pieceColour.getPieceColour().isWhite() && pieceColour.getPieceType().isNormal()) {
-                CheckersDrawer.removePiece(position);
-                CheckersDrawer.addPiece(position, new PieceColour(pieceColour.getPieceColour(), PieceColour.Type.QUEEN), false);
+                checkersDrawer.removePiece(position);
+                checkersDrawer.addPiece(position, new PieceColour(pieceColour.getPieceColour(), PieceColour.Type.QUEEN), false);
 
                 promoteOnBoard(position, pieceColour);
             }
 
             if (pieceColour.getPieceColour().isBlack() && pieceColour.getPieceType().isNormal()) {
-                CheckersDrawer.removePiece(position);
-                CheckersDrawer.addPiece(position, new PieceColour(pieceColour.getPieceColour(), PieceColour.Type.QUEEN), false);
+                checkersDrawer.removePiece(position);
+                checkersDrawer.addPiece(position, new PieceColour(pieceColour.getPieceColour(), PieceColour.Type.QUEEN), false);
 
                 promoteOnBoard(position, pieceColour);
             }

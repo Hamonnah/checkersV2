@@ -15,6 +15,8 @@ public class CheckersRunner extends Application {
     @Override
     public void start(Stage primaryStage)
     {
+
+        gameState.setCheckersDrawer(checkersDrawer);
         this.primaryStage = primaryStage;
 
         Scene scene = new Scene(checkersDrawer.getBorderPane(), 700, 700, Color.BLACK);
