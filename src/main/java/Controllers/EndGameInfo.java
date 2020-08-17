@@ -74,4 +74,5 @@ public class EndGameInfo {
             System.exit(0);
         }
     }
+
 }

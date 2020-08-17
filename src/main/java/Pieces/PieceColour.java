@@ -18,6 +18,7 @@ public class PieceColour {
         return pieceType;
     }
 
+
     public enum Colour {
         BLACK, WHITE;
 

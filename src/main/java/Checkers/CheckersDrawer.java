@@ -1,7 +1,6 @@
 package Checkers;
 
 import Controllers.MenuDesigner;
-import Controllers.NewGame;
 import Pieces.PieceColour;
 import Pieces.PiecePosition;
 import javafx.geometry.HPos;
@@ -69,7 +68,9 @@ public class CheckersDrawer {
 
     static void addPiece(PiecePosition position, PieceColour pieceColour, boolean light) {
         ImageView imageView = new ImageView(generateImagePath(pieceColour, light));
-        imageView.setOnMouseClicked(event -> setLight(position));
+        imageView.setOnMouseClicked(event -> {
+                    setLight(position);});
+
         gridPane.add(imageView, position.getColumn(), position.getRow());
     }
 
